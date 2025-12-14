@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Sports Classifier</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Sports Classifier</h1>
+
+    <div class="form-group">
+      <label for="method-select">Chọn phương pháp Embedding:</label>
+      <select id="method-select">
+        <option value="HOG">HOG (Histogram of Oriented Gradients)</option>
+        <option value="VGG16">VGG16 (CNN)</option>
+        <option value="ViT">ViT (Vision Transformer)</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Input Ảnh:</label>
+      <div class="upload-area" onclick="document.getElementById('file-input').click()">
+        <div class="upload-placeholder" id="placeholder-text">
+          <span>Nhấn để chọn ảnh</span>
+        </div>
+        <img id="image-preview" alt="Preview">
+        <input type="file" id="file-input" accept="image/*">
+      </div>
+    </div>
+
+    <button id="predict-btn" onclick="handlePredict()">Phân loại ngay</button>
+
+    <div class="spinner" id="loading-spinner"></div>
+
+    <div id="result-area">
+      <div class="result-item">Môn thể thao: <span class="label-sport" id="res-label">---</span></div>
+      <div class="result-item">Độ tin cậy: <span id="res-conf">---</span></div>
+      <div class="result-item" style="font-size: 0.85rem; color: #666;">
+        Model xử lý: <span id="res-method">---</span>
+      </div>
+      <div style="width: 100%; background: #ddd; height: 6px; border-radius: 3px; margin-top:5px;">
+        <div id="conf-bar"
+          style="width: 0%; background: var(--primary); height: 100%; border-radius: 3px; transition: width 0.5s;">
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="scripts.js">
+
+  </script>
+</body>
+
+</html>
