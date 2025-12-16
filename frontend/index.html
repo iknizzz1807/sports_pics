@@ -11,16 +11,9 @@
 <body>
 
   <div class="container">
-    <h1>Sports Classifier</h1>
+    <h1>Sports Classifier (ViT Edition)</h1>
 
-    <div class="form-group">
-      <label for="method-select">Chọn phương pháp Embedding:</label>
-      <select id="method-select">
-        <option value="HOG">HOG (Histogram of Oriented Gradients)</option>
-        <option value="VGG16">VGG16 (CNN)</option>
-        <option value="ViT">ViT (Vision Transformer)</option>
-      </select>
-    </div>
+    <!-- Đã xóa phần chọn Method -->
 
     <div class="form-group">
       <label>Input Ảnh:</label>
@@ -41,7 +34,7 @@
       <div class="result-item">Môn thể thao: <span class="label-sport" id="res-label">---</span></div>
       <div class="result-item">Độ tin cậy: <span id="res-conf">---</span></div>
       <div class="result-item" style="font-size: 0.85rem; color: #666;">
-        Model xử lý: <span id="res-method">---</span>
+        Model xử lý: <span id="res-method">ViT + KNN</span>
       </div>
       <div style="width: 100%; background: #ddd; height: 6px; border-radius: 3px; margin-top:5px;">
         <div id="conf-bar"
@@ -50,9 +43,7 @@
       </div>
     </div>
   </div>
-  <script src="scripts.js">
-
-  </script>
+  <script src="scripts.js"></script>
 </body>
 
 </html>

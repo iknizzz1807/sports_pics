@@ -1,6 +1,3 @@
-// File: scripts.js
-
-// --- 1. XỬ LÝ GIAO DIỆN (PREVIEW ẢNH) ---
 const fileInput = document.getElementById("file-input");
 const imgPreview = document.getElementById("image-preview");
 const placeholder = document.getElementById("placeholder-text");
@@ -10,7 +7,6 @@ const spinner = document.getElementById("loading-spinner");
 
 let currentFile = null;
 
-// API Endpoint (Đảm bảo backend chạy ở port 8000)
 const API_URL = "http://localhost:8000/api/predict";
 
 fileInput.addEventListener("change", function (e) {
@@ -22,14 +18,11 @@ fileInput.addEventListener("change", function (e) {
       imgPreview.src = e.target.result;
       imgPreview.style.display = "block";
       placeholder.style.display = "none";
-      // Reset kết quả cũ
       resultArea.style.display = "none";
     };
     reader.readAsDataURL(file);
   }
 });
-
-// --- 2. LOGIC GỌI API ---
 
 async function handlePredict() {
   if (!currentFile) {
@@ -37,21 +30,17 @@ async function handlePredict() {
     return;
   }
 
-  const method = document.getElementById("method-select").value;
-
-  // UI: Bật loading, tắt nút
+  // UI: Bật loading
   predictBtn.disabled = true;
   predictBtn.innerText = "Đang xử lý...";
   spinner.style.display = "block";
   resultArea.style.display = "none";
 
   try {
-    // Tạo form data gửi lên backend
     const formData = new FormData();
     formData.append("image", currentFile);
-    formData.append("method", method);
+    // Không cần append method nữa
 
-    // Gọi API thật
     const response = await fetch(API_URL, {
       method: "POST",
       body: formData,
@@ -62,26 +51,24 @@ async function handlePredict() {
     }
 
     const data = await response.json();
-
-    // Hiển thị kết quả
     displayResult(data);
   } catch (error) {
     console.error("Lỗi:", error);
-    alert("Có lỗi xảy ra khi xử lý: " + error.message);
+    alert("Có lỗi xảy ra: " + error.message);
   } finally {
-    // UI: Reset trạng thái
+    // UI: Reset
     predictBtn.disabled = false;
     predictBtn.innerText = "Phân loại ngay";
     spinner.style.display = "none";
   }
 }
 
-// --- 3. HÀM HIỂN THỊ KẾT QUẢ ---
 function displayResult(data) {
   document.getElementById("res-label").innerText = data.label;
-  document.getElementById("res-method").innerText = data.method;
 
-  // Format phần trăm
+  // Backend trả về method, hoặc ta hardcode hiển thị
+  document.getElementById("res-method").innerText = data.method || "ViT + KNN";
+
   const confidenceVal = data.confidence;
   const percent = (confidenceVal * 100).toFixed(2) + "%";
 
@@ -90,13 +77,12 @@ function displayResult(data) {
   const bar = document.getElementById("conf-bar");
   bar.style.width = percent;
 
-  // Đổi màu thanh confidence dựa trên độ tin cậy
   if (confidenceVal > 0.8) {
-    bar.style.backgroundColor = "#10b981"; // Green
+    bar.style.backgroundColor = "#10b981";
   } else if (confidenceVal > 0.6) {
-    bar.style.backgroundColor = "#f59e0b"; // Orange
+    bar.style.backgroundColor = "#f59e0b";
   } else {
-    bar.style.backgroundColor = "#ef4444"; // Red
+    bar.style.backgroundColor = "#ef4444";
   }
 
   resultArea.style.display = "block";
