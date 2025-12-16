@@ -138,5 +138,4 @@ class SportsPredictor:
         }
 
 
-# Singleton instance
 predictor = SportsPredictor()

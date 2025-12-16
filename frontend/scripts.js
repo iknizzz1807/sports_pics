@@ -71,18 +71,18 @@ function displayResult(data) {
   const confidenceVal = data.confidence;
   const percent = (confidenceVal * 100).toFixed(2) + "%";
 
-  document.getElementById("res-conf").innerText = percent;
+  // document.getElementById("res-conf").innerText = percent;
 
-  const bar = document.getElementById("conf-bar");
-  bar.style.width = percent;
-
-  if (confidenceVal > 0.8) {
-    bar.style.backgroundColor = "#10b981";
-  } else if (confidenceVal > 0.6) {
-    bar.style.backgroundColor = "#f59e0b";
-  } else {
-    bar.style.backgroundColor = "#ef4444";
-  }
+  // const bar = document.getElementById("conf-bar");
+  // bar.style.width = percent;
+  //
+  // if (confidenceVal > 0.8) {
+  //   bar.style.backgroundColor = "#10b981";
+  // } else if (confidenceVal > 0.6) {
+  //   bar.style.backgroundColor = "#f59e0b";
+  // } else {
+  //   bar.style.backgroundColor = "#ef4444";
+  // }
 
   resultArea.style.display = "block";
 }
