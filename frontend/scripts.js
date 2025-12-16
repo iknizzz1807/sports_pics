@@ -67,7 +67,6 @@ function displayResult(data) {
   document.getElementById("res-label").innerText = data.label;
 
   // Backend trả về method, hoặc ta hardcode hiển thị
-  document.getElementById("res-method").innerText = data.method || "ViT + KNN";
 
   const confidenceVal = data.confidence;
   const percent = (confidenceVal * 100).toFixed(2) + "%";

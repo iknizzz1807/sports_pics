@@ -6,11 +6,9 @@ from io import BytesIO
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import StandardScaler
 
-# Chỉ import thư viện cần thiết cho ViT
 import torch
 from transformers import ViTImageProcessor, ViTModel
 
-# Cấu hình đường dẫn artifacts
 ARTIFACTS_DIR = os.path.join(os.path.dirname(__file__), "artifacts")
 
 
@@ -21,15 +19,12 @@ class SportsPredictor:
         self.classes = None
         self.model_knn = None
         self.scaler = None
-        self.device = "cpu"  # Chạy trên CPU cho đơn giản và ổn định
+        self.device = "cpu"
 
-        # 1. Lấy danh sách tên Class từ file HOG (như bạn yêu cầu)
         self._load_class_names()
 
-        # 2. Load dữ liệu ViT và train KNN
         self._load_vit_and_train_knn()
 
-        # 3. Khởi tạo ViT Extractor (HuggingFace)
         print(">>> Đang tải ViT Pre-trained model (có thể mất vài giây)...")
         self.vit_processor = ViTImageProcessor.from_pretrained(
             "google/vit-base-patch16-224-in21k"
@@ -81,7 +76,6 @@ class SportsPredictor:
             y_train = data["y_train"]
 
             # Train KNN
-            # Lưu ý: n_neighbors=2 dựa trên code cũ của bạn
             self.model_knn = KNeighborsClassifier(n_neighbors=2)
             self.model_knn.fit(X_train, y_train)
 
@@ -130,13 +124,11 @@ class SportsPredictor:
 
         # 4. Map index sang tên class
         if self.classes:
-            # Đảm bảo index không vượt quá độ dài list class
             if idx < len(self.classes):
                 label_name = self.classes[idx]
             else:
                 label_name = f"Unknown Class ID {idx}"
         else:
-            # Fallback nếu không load được class name
             label_name = str(idx)
 
         return {

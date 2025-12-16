@@ -21,10 +21,8 @@ def read_root():
 @app.post("/api/predict")
 async def predict_sport(image: UploadFile = File(...)):
     try:
-        # Đọc file ảnh
         image_bytes = await image.read()
 
-        # Gọi model xử lý (không cần truyền method nữa)
         result = predictor.predict(image_bytes)
 
         return result
